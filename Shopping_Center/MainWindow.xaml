@@ -1,0 +1,19 @@
+﻿<Window x:Class="Shopping_Center.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Shopping_Center"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <Grid Background="#191f34"></Grid>
+        <Button Content="Торговые центры" Name="BtnShoppingCenters" Click="BtnShoppingCenters_Click" HorizontalAlignment="Center" FontSize="20" Margin="269,29,259.6,291" Width="265" Height="Auto"/>
+        <Button Content="Арендаторы" Name="BtnRenters" Click="BtnRenters_Click" HorizontalAlignment="Center" FontSize="20" Margin="269,158,259.6,167" Width="265" Height="Auto"/>
+        <Button Content="Сотрудники" Click="BtnEmplooyes_Click" Name="BtnEmplooyes" HorizontalAlignment="Center" FontSize="20" Margin="269,292,259.6,33" Width="265" Height="Auto"/>
+        <Button Content="Загрузить фото" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="39" Margin="107,0,0,0"/>
+        <Frame NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Grid.Row="1" Name="MainFrame"></Frame>
+        <Button Content="Назад" Click="BtnBack_Click" Name="BtnBack" HorizontalAlignment="Left" FontSize="20" FontStyle="Italic" VerticalAlignment="Top"></Button>
+    </Grid>
+</Window>

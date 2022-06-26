@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище KingITModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Emplooyes">
+    <Key>
+      <PropertyRef Name="id_emplooye" />
+    </Key>
+    <Property Name="id_emplooye" Type="int" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="30" />
+    <Property Name="Name" Type="nvarchar" MaxLength="30" />
+    <Property Name="Second_name" Type="nvarchar" MaxLength="30" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="20" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+    <Property Name="Gender" Type="nchar" MaxLength="1" />
+    <Property Name="Photo" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Pavilions">
+    <Key>
+      <PropertyRef Name="Number_pavilion" />
+      <PropertyRef Name="id_shopping_center" />
+    </Key>
+    <Property Name="Number_pavilion" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="id_shopping_center" Type="int" Nullable="false" />
+    <Property Name="Floor" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Area" Type="float" Nullable="false" />
+    <Property Name="Price_square_meter" Type="float" Nullable="false" />
+    <Property Name="Coeff_add_price" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Renters">
+    <Key>
+      <PropertyRef Name="id_renter" />
+    </Key>
+    <Property Name="id_renter" Type="int" Nullable="false" />
+    <Property Name="Name_renter" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Additional_info" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rents">
+    <Key>
+      <PropertyRef Name="id_rent" />
+    </Key>
+    <Property Name="id_rent" Type="int" Nullable="false" />
+    <Property Name="Number_pavilion" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="id_shopping_center" Type="int" Nullable="false" />
+    <Property Name="id_renter" Type="int" Nullable="false" />
+    <Property Name="id_emplooye" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Begin_rent" Type="date" Nullable="false" />
+    <Property Name="Ending_rent" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shopping_centers">
+    <Key>
+      <PropertyRef Name="id_shopping_center" />
+    </Key>
+    <Property Name="id_shopping_center" Type="int" Nullable="false" />
+    <Property Name="Name_shopping_center" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Quantity_pavilions" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Coeff_add_price" Type="float" Nullable="false" />
+    <Property Name="Number_floors" Type="int" Nullable="false" />
+    <Property Name="Photo" Type="varbinary(max)" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Pavilions_ShopCenters">
+    <End Role="Shopping_centers" Type="Self.Shopping_centers" Multiplicity="1" />
+    <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shopping_centers">
+        <PropertyRef Name="id_shopping_center" />
+      </Principal>
+      <Dependent Role="Pavilions">
+        <PropertyRef Name="id_shopping_center" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rent_Employees">
+    <End Role="Emplooyes" Type="Self.Emplooyes" Multiplicity="1" />
+    <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emplooyes">
+        <PropertyRef Name="id_emplooye" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="id_emplooye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rent_Pavilions">
+    <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="1" />
+    <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pavilions">
+        <PropertyRef Name="Number_pavilion" />
+        <PropertyRef Name="id_shopping_center" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="Number_pavilion" />
+        <PropertyRef Name="id_shopping_center" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rent_Tenants">
+    <End Role="Renters" Type="Self.Renters" Multiplicity="1" />
+    <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Renters">
+        <PropertyRef Name="id_renter" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="id_renter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище KingITModelContainer">
+    <EntitySet Name="Emplooyes" EntityType="Self.Emplooyes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pavilions" EntityType="Self.Pavilions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Renters" EntityType="Self.Renters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rents" EntityType="Self.Rents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shopping_centers" EntityType="Self.Shopping_centers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Pavilions_ShopCenters" Association="Self.FK_Pavilions_ShopCenters">
+      <End Role="Shopping_centers" EntitySet="Shopping_centers" />
+      <End Role="Pavilions" EntitySet="Pavilions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rent_Employees" Association="Self.FK_Rent_Employees">
+      <End Role="Emplooyes" EntitySet="Emplooyes" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rent_Pavilions" Association="Self.FK_Rent_Pavilions">
+      <End Role="Pavilions" EntitySet="Pavilions" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rent_Tenants" Association="Self.FK_Rent_Tenants">
+      <End Role="Renters" EntitySet="Renters" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

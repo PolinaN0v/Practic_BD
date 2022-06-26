@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KingITModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Emplooyes">
+    <Key>
+      <PropertyRef Name="id_emplooye" />
+    </Key>
+    <Property Name="id_emplooye" Type="Int32" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Second_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Rents" Relationship="Self.FK_Rent_Employees" FromRole="Emplooyes" ToRole="Rents" />
+  </EntityType>
+  <EntityType Name="Pavilions">
+    <Key>
+      <PropertyRef Name="Number_pavilion" />
+      <PropertyRef Name="id_shopping_center" />
+    </Key>
+    <Property Name="Number_pavilion" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="id_shopping_center" Type="Int32" Nullable="false" />
+    <Property Name="Floor" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Area" Type="Double" Nullable="false" />
+    <Property Name="Price_square_meter" Type="Double" Nullable="false" />
+    <Property Name="Coeff_add_price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Shopping_centers" Relationship="Self.FK_Pavilions_ShopCenters" FromRole="Pavilions" ToRole="Shopping_centers" />
+    <NavigationProperty Name="Rents" Relationship="Self.FK_Rent_Pavilions" FromRole="Pavilions" ToRole="Rents" />
+  </EntityType>
+  <EntityType Name="Rents">
+    <Key>
+      <PropertyRef Name="id_rent" />
+    </Key>
+    <Property Name="id_rent" Type="Int32" Nullable="false" />
+    <Property Name="Number_pavilion" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="id_shopping_center" Type="Int32" Nullable="false" />
+    <Property Name="id_renter" Type="Int32" Nullable="false" />
+    <Property Name="id_emplooye" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Begin_rent" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Ending_rent" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Emplooyes" Relationship="Self.FK_Rent_Employees" FromRole="Rents" ToRole="Emplooyes" />
+    <NavigationProperty Name="Pavilions" Relationship="Self.FK_Rent_Pavilions" FromRole="Rents" ToRole="Pavilions" />
+    <NavigationProperty Name="Renters" Relationship="KingITModel.FK_Rent_Tenants" FromRole="Rents" ToRole="Renters" />
+  </EntityType>
+  <EntityType Name="Shopping_centers">
+    <Key>
+      <PropertyRef Name="id_shopping_center" />
+    </Key>
+    <Property Name="id_shopping_center" Type="Int32" Nullable="false" />
+    <Property Name="Name_shopping_center" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Quantity_pavilions" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Coeff_add_price" Type="Double" Nullable="false" />
+    <Property Name="Number_floors" Type="Int32" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Pavilions" Relationship="Self.FK_Pavilions_ShopCenters" FromRole="Shopping_centers" ToRole="Pavilions" />
+  </EntityType>
+  <Association Name="FK_Rent_Employees">
+    <End Role="Emplooyes" Type="Self.Emplooyes" Multiplicity="1" />
+    <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emplooyes">
+        <PropertyRef Name="id_emplooye" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="id_emplooye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pavilions_ShopCenters">
+    <End Role="Shopping_centers" Type="Self.Shopping_centers" Multiplicity="1" />
+    <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shopping_centers">
+        <PropertyRef Name="id_shopping_center" />
+      </Principal>
+      <Dependent Role="Pavilions">
+        <PropertyRef Name="id_shopping_center" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rent_Pavilions">
+    <End Role="Pavilions" Type="Self.Pavilions" Multiplicity="1" />
+    <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pavilions">
+        <PropertyRef Name="Number_pavilion" />
+        <PropertyRef Name="id_shopping_center" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="Number_pavilion" />
+        <PropertyRef Name="id_shopping_center" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShoppingCenterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Emplooyes" EntityType="Self.Emplooyes" />
+    <EntitySet Name="Pavilions" EntityType="Self.Pavilions" />
+    <EntitySet Name="Rents" EntityType="Self.Rents" />
+    <EntitySet Name="Shopping_centers" EntityType="Self.Shopping_centers" />
+    <AssociationSet Name="FK_Rent_Employees" Association="Self.FK_Rent_Employees">
+      <End Role="Emplooyes" EntitySet="Emplooyes" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pavilions_ShopCenters" Association="Self.FK_Pavilions_ShopCenters">
+      <End Role="Shopping_centers" EntitySet="Shopping_centers" />
+      <End Role="Pavilions" EntitySet="Pavilions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rent_Pavilions" Association="Self.FK_Rent_Pavilions">
+      <End Role="Pavilions" EntitySet="Pavilions" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+    <EntitySet Name="Renters" EntityType="KingITModel.Renters" />
+    <AssociationSet Name="FK_Rent_Tenants" Association="KingITModel.FK_Rent_Tenants">
+      <End Role="Renters" EntitySet="Renters" />
+      <End Role="Rents" EntitySet="Rents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Renters">
+    <Key>
+      <PropertyRef Name="id_renter" />
+    </Key>
+    <Property Name="id_renter" Type="Int32" Nullable="false" />
+    <Property Name="Name_renter" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Additional_info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rents" Relationship="KingITModel.FK_Rent_Tenants" FromRole="Renters" ToRole="Rents" />
+  </EntityType>
+  <Association Name="FK_Rent_Tenants">
+    <End Type="KingITModel.Renters" Role="Renters" Multiplicity="1" />
+    <End Type="KingITModel.Rents" Role="Rents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Renters">
+        <PropertyRef Name="id_renter" />
+      </Principal>
+      <Dependent Role="Rents">
+        <PropertyRef Name="id_renter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище KingITModelContainer" CdmEntityContainer="ShoppingCenterEntities">
+    <EntitySetMapping Name="Emplooyes">
+      <EntityTypeMapping TypeName="KingITModel.Emplooyes">
+        <MappingFragment StoreEntitySet="Emplooyes">
+          <ScalarProperty Name="id_emplooye" ColumnName="id_emplooye" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Second_name" ColumnName="Second_name" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pavilions">
+      <EntityTypeMapping TypeName="KingITModel.Pavilions">
+        <MappingFragment StoreEntitySet="Pavilions">
+          <ScalarProperty Name="Number_pavilion" ColumnName="Number_pavilion" />
+          <ScalarProperty Name="id_shopping_center" ColumnName="id_shopping_center" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Price_square_meter" ColumnName="Price_square_meter" />
+          <ScalarProperty Name="Coeff_add_price" ColumnName="Coeff_add_price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rents">
+      <EntityTypeMapping TypeName="KingITModel.Rents">
+        <MappingFragment StoreEntitySet="Rents">
+          <ScalarProperty Name="id_rent" ColumnName="id_rent" />
+          <ScalarProperty Name="Number_pavilion" ColumnName="Number_pavilion" />
+          <ScalarProperty Name="id_shopping_center" ColumnName="id_shopping_center" />
+          <ScalarProperty Name="id_renter" ColumnName="id_renter" />
+          <ScalarProperty Name="id_emplooye" ColumnName="id_emplooye" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Begin_rent" ColumnName="Begin_rent" />
+          <ScalarProperty Name="Ending_rent" ColumnName="Ending_rent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shopping_centers">
+      <EntityTypeMapping TypeName="KingITModel.Shopping_centers">
+        <MappingFragment StoreEntitySet="Shopping_centers">
+          <ScalarProperty Name="id_shopping_center" ColumnName="id_shopping_center" />
+          <ScalarProperty Name="Name_shopping_center" ColumnName="Name_shopping_center" />
+          <ScalarProperty Name="Quantity_pavilions" ColumnName="Quantity_pavilions" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Coeff_add_price" ColumnName="Coeff_add_price" />
+          <ScalarProperty Name="Number_floors" ColumnName="Number_floors" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Renters">
+      <EntityTypeMapping TypeName="KingITModel.Renters">
+        <MappingFragment StoreEntitySet="Renters">
+          <ScalarProperty Name="Additional_info" ColumnName="Additional_info" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Name_renter" ColumnName="Name_renter" />
+          <ScalarProperty Name="id_renter" ColumnName="id_renter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
